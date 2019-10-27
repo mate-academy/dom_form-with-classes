@@ -24,7 +24,7 @@ class Input {
       this.input.setAttribute('placeholder', 'Please, enter your email')
       return false;
     } else if(!this.input.value) {
-      this.input.style.border = '2px solid orange';
+      this.input.style.border = '2px solid #FCC304';
       this.input.setAttribute('placeholder', 'Could you write something?')
       return false;
     } else {

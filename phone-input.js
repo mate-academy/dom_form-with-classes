@@ -12,7 +12,7 @@ class PhoneInput extends Input {
       this.input.style.border = '2px solid black';
       return true;
     } else {
-      this.input.style.border = '2px solid orange';
+      this.input.style.border = '2px solid #FCC304';
       this.input.setAttribute('placeholder', 'Could you enter your correct phone?')
       return false;
     }
