@@ -47,16 +47,15 @@ class Form {
 
       for (const input of this.inputs) {
         let check = input.validate();
-        if(check) {
+        if (check) {
           this.data[input.input.name] = input.input.value;
-          console.log(this.data);
         } else {
           this.validationErrorCallback(input);
           checker = false;
         }
       }
 
-      if(checker) {
+      if (checker) {
         this.submitCallback(this.data);
       }
     });

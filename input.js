@@ -14,16 +14,15 @@ class Input {
     return this.input.name;
   }
 
-  setRequired(boolean) {
-    if(boolean) {
-      this.input.required = 'required';
-    }
+  setRequired(bool) {
+    return bool;
   }
 
   validate() {
-    if(!this.input.value && this.setRequired() === 'required') {
+    if (!this.input.value && this.input.name !== 'comment') {
       this.input.style.border = '2px solid red';
-      return true;
+      this.input.setAttribute('placeholder', 'Please, enter your email')
+      return false;
     } else if(!this.input.value) {
       this.input.style.border = '2px solid orange';
       this.input.setAttribute('placeholder', 'Could you write something?')

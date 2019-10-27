@@ -8,7 +8,7 @@ class PhoneInput extends Input {
   validate() {
     const valid = !!this.input.value.match(/(?:\w)(?:(?:(?:(?:\+?3)?8\W{0,5})?0\W{0,5})?[34569]\s?\d[^\w,;(\+]{0,5})?\d\W{0,5}\d\W{0,5}\d\W{0,5}\d\W{0,5}\d\W{0,5}\d\W{0,5}\d(?!(\W?\d))/);
     
-    if(valid) {
+    if (valid) {
       this.input.style.border = '2px solid black';
       return true;
     } else {
