@@ -36,6 +36,12 @@ body {
   background-color: rgb(144, 162, 182);
 }
 
+.button:disabled {
+  background-color: lightslategray;
+  opacity: 0.5;
+  cursor: default;
+}
+
 .form {
   padding-top: 50px;
   display: flex;

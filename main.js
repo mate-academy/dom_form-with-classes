@@ -37,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
         input.style.border = '1px solid red';
       });
 
+      form.disableButton();
+
       const message = document.createElement('span');
       
       message.className = 'form__message';

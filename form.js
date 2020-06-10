@@ -6,13 +6,17 @@ class Form {
   }
 
   _addButton() {
-    const button = document.createElement('button');
+    this.button = document.createElement('button');
     
-    button.className = 'button';
-    button.type = 'submit';
-    button.textContent = 'Submit';
+    this.button.className = 'button';
+    this.button.type = 'submit';
+    this.button.textContent = 'Submit';
     
-    this.form.append(button);
+    this.form.append(this.button);
+  }
+
+  disableButton() {
+    this.button.disabled = true;
   }
 
   addInput(element) {
