@@ -25,7 +25,8 @@ class Form {
 
   setValidationErrorCallback(callback) {
     for (const input of this.form.children) {
-      if (input.required && input.value.length < 4) {
+      if (input.value.length < 4 && input.required
+        || (input.name === 'name' && /\d/.test(input.value))) {
         callback(input);
       }
     }
