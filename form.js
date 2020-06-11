@@ -5,18 +5,18 @@ class Form {
     this.form.className = 'form';
   }
 
-  _addButton() {
-    this.button = document.createElement('button');
+  static addButton(form) {
+    const button = document.createElement('button');
     
-    this.button.className = 'button';
-    this.button.type = 'submit';
-    this.button.textContent = 'Submit';
+    button.className = 'button';
+    button.type = 'submit';
+    button.textContent = 'Submit';
     
-    this.form.append(this.button);
+    form.append(button);
   }
 
   disableButton() {
-    this.button.disabled = true;
+    this.form.querySelector('button').disabled = true;
   }
 
   addInput(element) {
@@ -24,7 +24,13 @@ class Form {
   }
 
   setSubmitCallback(callback) {
-    callback(this.form);
+    const fields = {};
+
+    for (const input of this.form.children) {
+      fields[input.name] = input.value; 
+    }
+
+    callback(fields);
   }
 
   setValidationErrorCallback(callback) {
@@ -37,7 +43,7 @@ class Form {
   }
 
   render(wrapper) {
-    this._addButton();
+    Form.addButton(this.form);
 
     wrapper.append(this.form);
   }

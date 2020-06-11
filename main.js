@@ -26,10 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault();
 
       form.setSubmitCallback(data => {
-        console.log(data.name, data.name.value);
-        console.log(data.email, data.email.value);
-        console.log(data.phone, data.phone.value);
-        console.log(data.comment, data.comment.value);
+        console.log('Name: ' + data.name);
+        console.log('Email: ' + data.email);
+        console.log('Phone: ' + data.phone);
+        console.log('Comment: ' + data.comment);
       });
 
       form.setValidationErrorCallback(input => {
