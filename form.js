@@ -1,22 +1,8 @@
 class Form {
   constructor() {
     this.form = document.createElement('form');
-
+  
     this.form.className = 'form';
-  }
-
-  static addButton(form) {
-    const button = document.createElement('button');
-    
-    button.className = 'button';
-    button.type = 'submit';
-    button.textContent = 'Submit';
-    
-    form.append(button);
-  }
-
-  disableButton() {
-    this.form.querySelector('button').disabled = true;
   }
 
   addInput(element) {
@@ -24,27 +10,71 @@ class Form {
   }
 
   setSubmitCallback(callback) {
-    const fields = {};
-
-    for (const input of this.form.children) {
-      fields[input.name] = input.value; 
-    }
-
-    callback(fields);
+    this.setSubmit = callback;
   }
 
   setValidationErrorCallback(callback) {
-    for (const input of this.form.children) {
-      if (input.value.length < 4 && input.required
-        || (input.name === 'name' && /\d/.test(input.value))) {
-        callback(input);
-      }
-    }
+    this.setValidationError = callback;
   }
 
-  render(wrapper) {
-    Form.addButton(this.form);
+  render(wrapper) {  
+    const form = this.form;
+    const message = this.#getMessage();
+    const setSubmit = this.setSubmit;
+    const setValidationError = this.setValidationError; 
+    const getInputsValues = this.#getInputsValues;
 
-    wrapper.append(this.form);
+    this.#addButton();
+
+    wrapper.append(form);
+
+    this.form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const inputs = getInputsValues(form);
+
+      setSubmit(inputs);
+
+      for (const [key, value] of Object.entries(inputs)) {
+        if (value.length < 4 || (key === 'name' && /\d/.test(value))) {
+          setValidationError({ name: key });
+        }
+      }
+
+      form.append(message);
+    });
+  }
+
+  #addButton = function() {
+    const button = document.createElement('button');
+
+    button.className = 'button';
+    button.type = 'submit';
+    button.textContent = 'Submit';
+
+    this.form.append(button);
+
+    return button;
+  }
+
+  #getMessage = function() {
+    const message = document.createElement('span');
+
+    message.className = 'form__message';
+    message.textContent = 'Check console.';
+
+    return message;
+  }
+
+  #getInputsValues = function(form) {
+    const inputs = {};
+
+    for (const input of form.children) {
+      if (input.name) {
+        inputs[input.name] = input.value; 
+      }
+    }
+
+    return inputs;
   }
 }
