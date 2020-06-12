@@ -37,7 +37,7 @@ class Form {
 
       for (const [key, value] of Object.entries(inputs)) {
         if (value.length < 4 || (key === 'name' && /\d/.test(value))) {
-          setValidationError({ name: key });
+          setValidationError({ getName: () => key });
         }
       }
 

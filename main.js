@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   form.setValidationErrorCallback(input => {
-    console.log('Invalid input: ' + input.name);
+    console.log('Invalid input: ' + input.getName());
   });
 
   form.render(document.getElementById('form-container'));
