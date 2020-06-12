@@ -17,48 +17,47 @@ class Form {
     this.setValidationError = callback;
   }
 
-  render(wrapper) {  
-    const form = this.form;
-    const message = this.#getMessage();
-    const setSubmit = this.setSubmit;
-    const setValidationError = this.setValidationError; 
-    const getInputsValues = this.#getInputsValues;
+  render(wrapper) {
+    this.form.append(Form.button);
 
-    this.#addButton();
+    this.form.addEventListener('submit', this.#handleSubmit);
 
-    wrapper.append(form);
+    wrapper.append(this.form);
+  }
 
-    this.form.addEventListener('submit', function(e) {
-      e.preventDefault();
+  static get button() {
+    const buttonElement = document.createElement('button');
 
-      const inputs = getInputsValues(form);
+    buttonElement.className = 'button';
+    buttonElement.type = 'submit';
+    buttonElement.textContent = 'Submit';
 
-      setSubmit(inputs);
+    return buttonElement;
+  }
 
-      for (const [key, value] of Object.entries(inputs)) {
-        if (value.length < 4 || (key === 'name' && /\d/.test(value))) {
-          setValidationError({ getName: () => key });
-        }
+  #handleSubmit = e => {
+    e.preventDefault();
+
+    const inputs = this.#getInputsValues(this.form);
+
+    this.setSubmit(inputs);
+    this.#checkValidation();
+
+    this.form.after(Form.message);
+  }
+
+  #checkValidation = function() {
+    for (const input of this.form.children) {
+      if (input.value.length < 4 && input.value && input.required) {
+        this.setValidationError({ getName: () => input.name });
+
+        input.style.border = '1px solid red';
       }
-
-      form.append(message);
-    });
+    }
   }
 
-  #addButton = function() {
-    const button = document.createElement('button');
-
-    button.className = 'button';
-    button.type = 'submit';
-    button.textContent = 'Submit';
-
-    this.form.append(button);
-
-    return button;
-  }
-
-  #getMessage = function() {
-    const message = document.createElement('span');
+  static get message() {
+    const message = document.createElement('div');
 
     message.className = 'form__message';
     message.textContent = 'Check console.';
@@ -66,10 +65,10 @@ class Form {
     return message;
   }
 
-  #getInputsValues = function(form) {
+  #getInputsValues = function() {
     const inputs = {};
 
-    for (const input of form.children) {
+    for (const input of this.form.children) {
       if (input.name) {
         inputs[input.name] = input.value; 
       }
