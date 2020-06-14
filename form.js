@@ -38,27 +38,41 @@ class Form {
   #handleSubmit = e => {
     e.preventDefault();
 
-    const inputs = this.#getValidInputs();
+    const inputs = [...this.form.children]
+      .filter(input => input.tagName !== 'BUTTON');
 
-    this.setSubmit(inputs);
+    if (this.#checkValidation(inputs)) {
+      const inputsData = this.#getInputsData(inputs);
+
+      this.setSubmit(inputsData);
+    }
 
     this.form.after(Form.message);
   }
 
-  #getValidInputs = function() {
-    const data = {};
+  #checkValidation = function(inputs) {
+    
+    const wrongInput = inputs.find(input => (
+      input.value.length < 4 && input.value && input.required
+    ));
 
-    for (const input of this.form.children) {
-      if (this.#checkValidation(input)) {
-        this.setValidationError({ getName: () => input.name });
+    if (wrongInput) {
+      this.setValidationError({ getName: () => wrongInput.name });
 
-        input.style.border = '1px solid red';
-      } else {
-        data[input.name] = input.value;
-      }
+      wrongInput.style.border = '1px solid red';
+
+      return false;
     }
 
-    return data;
+    return true;
+  }
+
+  #getInputsData = function(inputs) {
+    return inputs.reduce((data, input) => {
+      data[input.name] = input.value || '';
+
+      return data;
+    }, {});
   }
 
   static get message() {
@@ -68,9 +82,5 @@ class Form {
     message.textContent = 'Check console.';
 
     return message;
-  }
-
-  #checkValidation = function(input) {
-    return input.value.length < 4 && input.value && input.required;
   }
 }
