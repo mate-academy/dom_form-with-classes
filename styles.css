@@ -1,0 +1,56 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.input,
+.button {
+  padding: 10px;
+  border-radius: 15px;
+  border: 1px solid silver;
+  outline: none;
+}
+
+.input {
+  margin-bottom: 10px;
+}
+
+.button {
+  padding: 15px;
+  color: white;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: lightslategray;
+  transition: background-color 0.3s;
+}
+
+.button:hover {
+  background-color: rgb(144, 162, 182);
+}
+
+.button:disabled {
+  background-color: lightslategray;
+  opacity: 0.5;
+  cursor: default;
+}
+
+.form {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.form__message {
+  padding-top: 50px;
+  text-align: center;
+}
