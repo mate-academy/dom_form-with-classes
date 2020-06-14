@@ -51,7 +51,6 @@ class Form {
   }
 
   #checkValidation = function(inputs) {
-    
     const wrongInput = inputs.find(input => (
       input.value.length < 4 && input.value && input.required
     ));
@@ -68,11 +67,13 @@ class Form {
   }
 
   #getInputsData = function(inputs) {
-    return inputs.reduce((data, input) => {
+    const setInputData = (data, input) => {
       data[input.name] = input.value || '';
 
       return data;
-    }, {});
+    }
+
+    return inputs.reduce(setInputData, {});
   }
 
   static get message() {
