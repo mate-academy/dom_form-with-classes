@@ -38,22 +38,27 @@ class Form {
   #handleSubmit = e => {
     e.preventDefault();
 
-    const inputs = this.#getInputsValues(this.form);
+    const inputs = this.#getValidInputs();
 
     this.setSubmit(inputs);
-    this.#checkValidation();
 
     this.form.after(Form.message);
   }
 
-  #checkValidation = function() {
+  #getValidInputs = function() {
+    const data = {};
+
     for (const input of this.form.children) {
-      if (input.value.length < 4 && input.value && input.required) {
+      if (this.#checkValidation(input)) {
         this.setValidationError({ getName: () => input.name });
 
         input.style.border = '1px solid red';
+      } else {
+        data[input.name] = input.value;
       }
     }
+
+    return data;
   }
 
   static get message() {
@@ -65,15 +70,7 @@ class Form {
     return message;
   }
 
-  #getInputsValues = function() {
-    const inputs = {};
-
-    for (const input of this.form.children) {
-      if (input.name) {
-        inputs[input.name] = input.value; 
-      }
-    }
-
-    return inputs;
+  #checkValidation = function(input) {
+    return input.value.length < 4 && input.value && input.required;
   }
 }
