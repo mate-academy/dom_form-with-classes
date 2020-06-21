@@ -1,0 +1,20 @@
+class Input {
+  constructor() {
+    this.input = document.createElement('input');
+    this.input.type = 'text';
+    this.input.placeholder = 'Name';
+    this.input.className = 'input form-control';
+  }
+
+  setName(name) {
+    this.input.name = name;
+  }
+
+  setRequired(value) {
+    this.input.required = value;
+  }
+
+  getName() {
+    return this.input.name;
+  }
+}
