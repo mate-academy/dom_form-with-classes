@@ -35,6 +35,7 @@ class Form {
       const validData = this.#getData(inputData);
 
       this.setSubmit(validData);
+      this.form.reset();
     }
   }
 
