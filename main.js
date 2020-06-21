@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const comment = new Input();
     comment.setName('comment');
     form.addInput(comment);
+    comment.input.placeholder = 'Comment';
 
     form.setSubmitCallback(data => {
         console.log('Name: ' + data.name);
