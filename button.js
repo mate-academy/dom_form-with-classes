@@ -3,6 +3,6 @@ class Button {
     this.button = document.createElement('button');
     this.button.type = 'submit'
     this.button.textContent = 'OK';
-    this.button.className = 'button';
+    this.button.className = 'button btn btn-primary';
   }
 }
